@@ -1,14 +1,8 @@
-intro_exe : job.o hobby.o main.o
-	gcc -o intro_exe job.o hobby.o main.o
+intro_exe : re_es.o
+	gcc -o intro_exe re_es.o
 
-job.o : job.c
-	gcc -c -o job.o job.c
+re_es.o : re_es.c
+	gcc -c -o re_es.o re_es.c
   
-hobby.o : hobby.c
-	gcc -c -o hobby.o hobby.c
-  
-main.o : main.c
-	gcc -c -o main.o main.c
-  
-clean : 
+clean:
 	rm *.o intro_exe
