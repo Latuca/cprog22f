@@ -79,7 +79,7 @@ void main()
     //메뉴 과련 변수 선언
     int choice;
     // 파일 열기
-    fp=fopen("202211_apt_list.txt","w");
+    fp=fopen("202211_apt_list.txt","r");
     if(fp==NULL){
         printf("Cannot open file\n");
         return;

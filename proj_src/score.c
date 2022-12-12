@@ -61,7 +61,7 @@ void main()
     char input ='0';
 
     // 파일 열기
-    fp=fopen("202211_apt_list.dat","r+");
+    fp=fopen("202211_apt_list.txt","r");
     if(fp==NULL){
         printf("Cannot open file\n");
         return;
