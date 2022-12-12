@@ -47,10 +47,8 @@ Node *search_node(char *apt_name, Node* list_head)
     }
     return tmp;
 }
-void search(){
-    
-}
-void menu(void);
+
+void menu(void);//1.메뉴기능
 void search();
 void sort();
 void add();
@@ -76,9 +74,8 @@ void main()
     char apt_name[30];
     int space;
     long int price;
-    char input ='0';
     // 함수포인터 배열 선언
-    void (*pf[4])(Node *ptr,)={search,sort,add,remove};
+    void (*pf[4])()={search,sort,add,remove};
     //메뉴 과련 변수 선언
     int choice;
     // 파일 열기
@@ -118,22 +115,10 @@ void main()
                 remove();
                 break;
             default:
-                printf("잘못된 번호를 선택하셨습니다.");
+                break;
         }
     }
-        //부동산 정보 검색
-        while(input!=ESC){
-            printf("\n------------------------------\n");
-            printf("부동산 정보 검색(단지명):");
-            scanf("%s",apt_name);
-            tmp_node=search_node(apt_name,list_head);
-            if(tmp_node)
-                printf("%s %s %d %ld\n",tmp_node->address,tmp_node->apt_name,tmp_node->space,tmp_node->price);
-            else
-                printf("찾으시는 매물이 없습니다.\n");
-            printf("종료는 ESC, 계속은 Enter 키를 누르세요\n");
-            input=getch();
-        }
+
         // 메모리 해제 및 파일 닫기
         while(list_head){
             tmp_node=list_head;
@@ -143,6 +128,42 @@ void main()
         fclose(fp);
 }
 
+void search(){
+    Node *tmp_node;
+    Node *list_head;
+    char apt_name[30];
+    char input ='0';
+    while(input!=ESC){
+        printf("\n------------------------------\n");
+        printf("부동산 정보 검색(단지명):");
+        scanf("%s",apt_name);
+        tmp_node=search_node(apt_name,list_head);
+        if(tmp_node)
+            printf("%s %s %d %ld\n",tmp_node->address,tmp_node->apt_name,tmp_node->space,tmp_node->price);
+        else
+            printf("찾으시는 매물이 없습니다.\n");
+        printf("종료는 ESC, 계속은 Enter 키를 누르세요\n");
+        input=getch();
+    }
+}
+//2.정렬 기능 구현
+void insertNodeSort(){
+    Node * list_head=NULL;
+    Node *new_node=(Node *)malloc(sizeof(Node));
+    scanf("%d",new_node->price);
+    new_node->next=NULL;
+    if(list_head==NULL)
+    {
+        list_head=new_node;
+        return ;
+    }
+    if(list_head->price>new_node->price)
+    {
+        new_node->next=list_head;
+        list_head=new_node;
+        return ;
+    }
+}
 
 
 
