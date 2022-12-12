@@ -47,7 +47,25 @@ Node *search_node(char *apt_name, Node* list_head)
     }
     return tmp;
 }
-
+void search(){
+    
+}
+void menu(void);
+void search();
+void sort();
+void add();
+void remove();
+void menu(void)
+{
+    printf("================");
+    printf("0.검색");
+    printf("1.정렬");
+    printf("2.정보 추가");
+    printf("3.삭제");
+    printf("4.프로그램 종료");
+    printf("================");
+    
+}
 void main()
 {
     FILE *fp = NULL;
@@ -59,9 +77,12 @@ void main()
     int space;
     long int price;
     char input ='0';
-
+    // 함수포인터 배열 선언
+    void (*pf[4])(Node *ptr,)={search,sort,add,remove};
+    //메뉴 과련 변수 선언
+    int choice;
     // 파일 열기
-    fp=fopen("202211_apt_list.dat","r+");
+    fp=fopen("202211_apt_list.txt","r");
     if(fp==NULL){
         printf("Cannot open file\n");
         return;
@@ -74,6 +95,31 @@ void main()
         // 노드추가
         new_node->next=list_head;
         list_head=new_node;
+    }
+    while(1)
+    {
+        menu();
+        printf("메뉴를 선택하시오:");
+        scanf("%d",&choice);
+
+        if(choice <0 || choice )
+            break;
+        switch(choice){
+            case 0:
+                search();
+                break;
+            case 1:
+                sort();
+                break;
+            case 2:
+                add();
+                break;
+            case 3:
+                remove();
+                break;
+            default:
+                printf("잘못된 번호를 선택하셨습니다.");
+        }
     }
         //부동산 정보 검색
         while(input!=ESC){
@@ -96,7 +142,7 @@ void main()
         }
         fclose(fp);
 }
-void
+
 
 
 

@@ -28,7 +28,7 @@ int main()
 }
 void Game()
 {
-    int n;
+    int n,i;
     int choice;
     Node *head;
     printf("참가 인원: ");
