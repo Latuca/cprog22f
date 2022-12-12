@@ -51,17 +51,17 @@ Node *search_node(char *apt_name, Node* list_head)
 void menu(void);//1.메뉴기능
 void search();
 void sort();
-void add();
-void remove();
+void addFirst();
+void delete();
 void menu(void)
 {
-    printf("================");
-    printf("0.검색");
-    printf("1.정렬");
-    printf("2.정보 추가");
-    printf("3.삭제");
-    printf("4.프로그램 종료");
-    printf("================");
+    printf("================\n");
+    printf("0.검색\n");
+    printf("1.정렬\n");
+    printf("2.정보 추가\n");
+    printf("3.삭제\n");
+    printf("4.프로그램 종료\n");
+    printf("================\n");
     
 }
 void main()
@@ -75,11 +75,11 @@ void main()
     int space;
     long int price;
     // 함수포인터 배열 선언
-    void (*pf[4])()={search,sort,add,remove};
+    void (*pf[4])()={search,sort,addFirst,delete};
     //메뉴 과련 변수 선언
     int choice;
     // 파일 열기
-    fp=fopen("202211_apt_list.txt","r");
+    fp=fopen("202211_apt_list.txt","w");
     if(fp==NULL){
         printf("Cannot open file\n");
         return;
@@ -96,23 +96,23 @@ void main()
     while(1)
     {
         menu();
-        printf("메뉴를 선택하시오:");
+        printf("\n메뉴를 선택하시오:");
         scanf("%d",&choice);
 
         if(choice <0 || choice )
             break;
         switch(choice){
             case 0:
-                search();
+                search(fp);
                 break;
             case 1:
-                sort();
+                sort(fp);
                 break;
             case 2:
-                add();
+                addFirst(fp,price);
                 break;
             case 3:
-                remove();
+                delete(fp);
                 break;
             default:
                 break;
@@ -128,7 +128,7 @@ void main()
         fclose(fp);
 }
 
-void search(){
+void search(Node *tar){
     Node *tmp_node;
     Node *list_head;
     char apt_name[30];
@@ -147,10 +147,9 @@ void search(){
     }
 }
 //2.정렬 기능 구현
-void insertNodeSort(){
-    Node * list_head=NULL;
+void sort(Node * list_head){
     Node *new_node=(Node *)malloc(sizeof(Node));
-    scanf("%d",new_node->price);
+    scanf("%ld",&new_node->price);
     new_node->next=NULL;
     if(list_head==NULL)
     {
@@ -163,6 +162,21 @@ void insertNodeSort(){
         list_head=new_node;
         return ;
     }
+}
+//3.정보 추가
+void addFirst(Node *tar, int price )
+{
+    Node * new_node=malloc(sizeof(Node));
+    new_node->next=tar->next;
+    new_node->price=price;
+    tar->next=new_node;
+}
+//4.정보 삭제
+void delete(Node *tar)
+{
+    Node *removeNode=tar->next;
+    tar->next=removeNode->next;
+    free(removeNode);
 }
 
 
